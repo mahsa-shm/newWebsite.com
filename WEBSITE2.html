@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>WEBSITE2</title>
+    <link rel="stylesheet" href="WEBSITE2.css" />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- jquery codes -->
+    <script>
+      /****************************************/
+
+      $(function () {
+        ////////// weather app display////////////
+        $("#weather-input").click(function () {
+          $(".weather-app").css({
+            width: "600px",
+            height: "200px",
+          });
+          $(".offFocus").css("display", "none");
+        });
+        $(".weather-app").mouseleave(function () {
+          $(this).css({
+            width: "350px",
+            height: "125px",
+          });
+          $(".offFocus").css("display", "block");
+          $(".onFocus").css("display", "none");
+          $(".invalid-weather").css("display", "none");
+        });
+        $("#weather-input").keypress(function (e) {
+          var key = e.which;
+          if (key == 13) {
+            // the enter key code
+
+            $(".weather-app").css({
+              width: "600px",
+              height: "200px",
+            });
+            $(".offFocus").css("display", "none");
+
+            $("#weather-button").click();
+            return false;
+          }
+        });
+        //////////////calculator////////////////////
+        $(".cal-search").click(function () {
+          $(".calculator").css({
+            width: "600px",
+            height: "210px",
+          });
+          $(".cal-img").css("display", "none");
+          $(".cal-form").css("display", "block");
+          $(".cal-search").css("display", "none");
+        });
+        $(".calculator").mouseleave(function () {
+          $(this).css({
+            width: "350px",
+            height: "125px",
+          });
+          $(".cal-img").css("display", "block");
+          $(".cal-form").css("display", "none");
+          $(".cal-search").css("display", "flex");
+        });
+        //how to give the enter key(key==13)a function
+        $(".cal-display-input").keypress(function (e) {
+          var key = e.which;
+          if (key == 13) {
+            // the enter key code
+            $('input[value="="]').click();
+            return false;
+          }
+        });
+        ////////////  to do list//////////////
+        $(".toDo-search").click(function () {
+          $(".to-do-list").css({
+            width: "600px",
+            height: "200px",
+          });
+          $(".toDo-img").css("display", "none");
+          $(".toDo-container").css("display", "block");
+        });
+
+        $(".to-do-list").mouseleave(function () {
+          $(this).css({
+            width: "350px",
+            height: "125px",
+          });
+          $(".toDo-img").css("display", "block");
+          $(".toDo-container").css("display", "none");
+        });
+        $("#inputBox-toDo").keypress(function (e) {
+          var key = e.which;
+          if (key == 13) {
+            // the enter key code
+            $(".to-do-list").css({
+              width: "600px",
+              height: "200px",
+            });
+            $(".toDo-img").css("display", "none");
+            $(".toDo-container").css("display", "block");
+
+            $("#toDo-btn").click();
+            return false;
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-----------show the navbar with scroll-------------------
+// When the user scrolls down 20px from the top of the document, slide down the navbar
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-50px";
+  }
+}
+  -->
+    <header>
+      <div class="firstPage col-d-12">
+        <img src="minimalSunsetWallpaper.png" alt="" />
+        <div class="centered">
+          <h1>WELLCOME</h1>
+          <p>by mahsa</p>
+        </div>
+        <div class="dropDownMenu">
+          <button class="dropDownBtn">
+            <img src="icons8-menu-64-white (2).png" />
+          </button>
+          <div class="dropDownContent">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="sticky-bar">
+      <a href="#">Contact Us</a>
+      <a href="#">About</a>
+      <a href="#">Home</a>
+    </div>
+    <main>
+      <div class="row">
+        <div class="tools-section col-d-4">
+          <!-- weather app -->
+          <div class="weather-app">
+            <h2>
+              weather App <img class="h2-Img" src="icons8-mySun-60.png" />
+            </h2>
+            <div class="search">
+              <input
+                id="weather-input"
+                type="text"
+                placeholder="enter the city"
+              />
+              <button id="weather-button">
+                <img src="icons8-search-32.png" alt="" />
+              </button>
+            </div>
+            <!-- wrong input -->
+            <div class="invalid-weather">invalid citys</div>
+            <!-- when not focus -->
+            <div class="weather-info offFocus">
+              <div class="weather-temp">
+                <img class="weather-img" src="icons8-mySun-60.png" alt="" />
+              </div>
+            </div>
+            <!-- when focus -->
+            <div style="display: none" class="weather-info onFocus">
+              <div class="weather-temp">
+                <img
+                  style="display: block"
+                  class="weather-img changing-weather-img"
+                  src="icons8-mySun-60.png"
+                  alt=""
+                />
+                <h3 class="city-name">new york</h3>
+                <h3 class="tempData">25deg</h3>
+              </div>
+              <div class="extraInfo-humidity">
+                <img src="icons8-myHygrometer-60.png" alt="" />
+                <h3>humidity</h3>
+                <h3 class="humidityData">25%</h3>
+              </div>
+              <div class="extraInfo-windSpeed">
+                <img src="icons8-myWind-60.png" alt="" />
+                <h3>wind speed</h3>
+                <h3 class="speedData">12km/h</h3>
+              </div>
+            </div>
+          </div>
+          <!-- calculator -->
+          <div class="calculator">
+            <h2>
+              Calculator <img class="h2-Img" src="icons8-estimate-100.png" />
+            </h2>
+            <div class="search cal-search">
+              <input type="text" placeholder="enter a number" />
+              <button class="cal-button">
+                <img src="icons8-search-32.png" alt="" />
+              </button>
+            </div>
+            <div class="calculator-info">
+              <img class="cal-img" src="icons8-estimate-100.png" />
+              <!-- calculator itself -->
+              <form style="display: none" class="cal-form" action="">
+                <div class="cal-row">
+                  <input class="cal-display-input" type="text" />
+                </div>
+                <div class="cal-row">
+                  <input
+                    onclick="calDisplay.value ='' "
+                    class="cal-operator clear"
+                    value="AC"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value =calDisplay.value.toString().slice(0,-1) "
+                    class="cal-operator clear"
+                    value="DC"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='1' "
+                    class="cal-number"
+                    value="1"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='2' "
+                    class="cal-number"
+                    value="2"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='3' "
+                    class="cal-number"
+                    value="3"
+                    type="button"
+                  />
+                </div>
+                <div class="cal-row">
+                  <input
+                    onclick="calDisplay.value +='+' "
+                    class="cal-operator"
+                    value="+"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='-' "
+                    class="cal-operator"
+                    value="-"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='4' "
+                    class="cal-number"
+                    value="4"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='5' "
+                    class="cal-number"
+                    value="5"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='6' "
+                    class="cal-number"
+                    value="6"
+                    type="button"
+                  />
+                </div>
+                <div class="cal-row">
+                  <input
+                    onclick="calDisplay.value +='.' "
+                    class="cal-operator"
+                    value="."
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='*' "
+                    class="cal-operator"
+                    value="*"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='7' "
+                    class="cal-number"
+                    value="7"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='8' "
+                    class="cal-number"
+                    value="8"
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='9' "
+                    class="cal-number"
+                    value="9"
+                    type="button"
+                  />
+                </div>
+                <div class="cal-row">
+                  <input
+                    onclick="calDisplay.value =eval(calDisplay.value) "
+                    class="cal-operator cal-equal"
+                    value="="
+                    type="button"
+                  />
+                  <input
+                    onclick="calDisplay.value +='0' "
+                    class="cal-number"
+                    value="0"
+                    type="button"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- to do list -->
+          <div class="to-do-list">
+            <h2>
+              To Do List <img class="h2-Img" src="icons8-notebook-100.png" />
+            </h2>
+            <div class="search toDo-search">
+              <input
+                id="inputBox-toDo"
+                type="text"
+                placeholder="enter a note"
+              />
+              <button id="toDo-btn" onclick="AddTask()">
+                <img src="icons8-search-32.png" />
+              </button>
+            </div>
+            <div class="toDoList-info">
+              <img class="toDo-img" src="icons8-notebook-100.png" />
+              <div style="display: none" class="toDo-container">
+                <ul class="toDo-Ul" id="toDoList-id">
+                  <!-- <li class="checked">
+                   helloffff ddddb dfff sdjk dfjskjsk skskfsj
+                  </li>
+                  <li>helloffff ddddd sdjkdfjskjsk skskfsj</li>
+                  <li>helloffff ddddd sdjkdfjskjsk skskfsj</li>  -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--text section-->
+        <div class="row text-section col-d-8">
+          <div class="main-text-area">
+            <h1>News</h1>
+            <h2>first</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo saepe
+              dolorum molestiae? Omnis voluptatum at facere. Repellat aspernatur
+              amet doloremque consectetur nam officia, similique alias magnam
+              facere harum. Iure neque sed expedita veritatis tenetur
+              perferendis eum vero consequatur eius. Et veritatis facilis saepe
+              eos expedita temporibus est perferendis odio qui!
+            </p>
+            <h2>secondsecond</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+              soluta ipsum sapiente quo quam eius voluptatibus rem sit explicabo
+              quibusdam!
+            </p>
+            <h2>third</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+              numquam itaque nisi officia? Ipsum, animi tempora. Cumque
+              perferendis incidunt fuga?
+            </p>
+            <h2>fourth</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+              numquam itaque nisi officia? Ipsum, animi tempora. Cumque
+              perferendis incidunt fuga?
+            </p>
+            <h2>fifth</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+              soluta ipsum sapiente quo quam eius voluptatibus rem sit explicabo
+              quibusdam!
+            </p>
+          </div>
+        </div>
+        <div class="row menu col-d-12"></div>
+      </div>
+    </main>
+    <footer class="row footer-section col-d-12"></footer>
+    <script></script>
+    <script src="WEBSITE2.js"></script>
+  </body>
+</html>
